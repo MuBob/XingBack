@@ -43,12 +43,12 @@ public class ResponseDesolve {
 		return str;
 	}
 	
-	public String desolve(int errCode, String errMsg){
+	public String desolve(int code, String msg){
 		BaseResponse res=new BaseResponse();
-		res.setCode(errCode);
-		if(StringUtil.isNull(errMsg))
-			errMsg="";
-		res.setMsg(errMsg);
+		res.setCode(code);
+		if(StringUtil.isNull(msg))
+			msg="";
+		res.setMsg(msg);
 		Gson gson=new Gson();
 		String str = gson.toJson(res);
 		return str;

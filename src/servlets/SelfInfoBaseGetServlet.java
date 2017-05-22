@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entitys.LoginDataResponse;
-import services.LoginImp;
-import services.RegisterDaoImp;
-import utils.CommonUtil;
+import entitys.SelfInfoBaseDataResponse;
+import services.SelfInfoBaseDaoImp;
 import utils.ResponseCommon;
 import utils.ResponseDesolve;
 
@@ -24,41 +23,29 @@ import utils.ResponseDesolve;
  * @author WangJinXing
  *
  */
-public class SelfInfoBaseServlet extends HttpServlet {
+public class SelfInfoBaseGetServlet extends HttpServlet {
 
-	private LoginImp loginDao = null;
-	private List<LoginDataResponse> lists = null;
+	private SelfInfoBaseDaoImp baseInfoDao = null;
+	private List<SelfInfoBaseDataResponse> lists = null;
 	private String mpassword = null;
 	private Boolean flag;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("----------------------");
-		String number = request.getParameter("id");
-		String password = request.getParameter("pwd");
+		String uid = request.getParameter("id");
 		Map<String, Object> data = new HashMap<String, Object>();
 		String responseStr=null;
-		loginDao = new LoginImp();
-		lists = loginDao.queryById(number);
+		baseInfoDao = new SelfInfoBaseDaoImp();
+		lists = baseInfoDao.queryById(uid);
 		System.out.println(lists);
 		if(lists==null||lists.size()==0){
-			//没有该账号  创建注册
-//			RegisterDaoImp registerDaoImp = new RegisterDaoImp();
-//			registerDaoImp.Savedata(number, password);
-//			data.put("result", "注册成功");
 			responseStr=ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE, ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 		}else{
 			//账号存在  验证密码
 			for(int i=0;i<lists.size();i++){
-				LoginDataResponse loginResponse=lists.get(i);
-				if(loginResponse.getPwd().equals(password)){
-//					data.put("result", "登录成功");
-					responseStr=ResponseDesolve.getInstance().desolve(loginResponse, ResponseCommon.Msg.ERROR_FAILE_LOGIN);
-					break;
-				}else{
-					responseStr=ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE, ResponseCommon.Msg.ERROR_FAILE_LOGIN_ERROR_INFO);
-//					data.put("result", "登录失败");
-				}
+				SelfInfoBaseDataResponse infoResponse=lists.get(i);
+				responseStr=ResponseDesolve.getInstance().desolve(infoResponse, ResponseCommon.Msg.ERROR_NORMAL);
 			}
 		}
 //		System.out.println(data);
