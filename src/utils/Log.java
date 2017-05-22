@@ -22,13 +22,13 @@ public class Log {
 	}
 
 	public static void i(String tag, String msg) {
-		if (IS_DEBUG) {
+		if (IS_INFORMATION) {
 			System.out.println(currentTime() + " Information: " + tag + ": " + msg);
 		}
 	}
 
 	public static void e(String tag, String msg) {
-		if (IS_DEBUG) {
+		if (IS_ERROR) {
 			System.out.println(currentTime() + " Error: " + tag + ": " + msg);
 		}
 	}

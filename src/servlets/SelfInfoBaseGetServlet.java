@@ -17,7 +17,7 @@ import utils.ResponseCommon;
 import utils.ResponseDesolve;
 
 /**
- * url: http://localhost:8080/Xing/SelfInfoBaseServlet?id=123456789
+ * url: http://localhost:8080/Xing/SelfInfoBaseGetServlet?id=123456789
  */
 public class SelfInfoBaseGetServlet extends HttpServlet {
 

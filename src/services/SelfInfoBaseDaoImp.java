@@ -9,12 +9,13 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import entitys.SelfInfoBaseDataResponse;
 import utils.DataSourceManager;
+import utils.Log;
 
 public class SelfInfoBaseDaoImp {
 	private QueryRunner runner = new QueryRunner(DataSourceManager.getSource());
 	public List<SelfInfoBaseDataResponse> queryById(String id) {
-		String sql = "select * from table_personal where id=?";
-		// TODO Auto-generated method stub
+		String sql="select * from table_personal where id=?";
+		Log.i("TAG", "sql="+sql);
 		List<SelfInfoBaseDataResponse> list = null;
 		try {
 			list = runner.query(sql,
@@ -27,7 +28,8 @@ public class SelfInfoBaseDaoImp {
 	}
 
 	public void modify(String id, Object[] params){
-		String sql=String.format("update table_personal set name = ?£¬sex=?, idCard=?, birthday=?  where id = %s;", id);
+		String sql=String.format("update table_personal set name =?, sex=?, idcard=?, birthday=?  where id = %s;", id);
+		Log.i("TAG", "sql="+sql+"£¬ params="+params);
 		try {
 			runner.update(sql, params);
 		} catch (SQLException e) {

@@ -9,9 +9,9 @@ public class SelfInfoBaseDataResponse extends BaseDataResponse {
 	private static final long serialVersionUID = 1562951043899664433L;
 	private String id;
 	private String name;
-	private int sex;
+	private String sex;
 	private String idCard;
-	private Date birthday;
+	private String birthday;
 	public String getId() {
 		return id;
 	}
@@ -24,10 +24,10 @@ public class SelfInfoBaseDataResponse extends BaseDataResponse {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public String getIdCard() {
@@ -36,10 +36,10 @@ public class SelfInfoBaseDataResponse extends BaseDataResponse {
 	public void setIdCard(String idCard) {
 		this.idCard = idCard;
 	}
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	@Override

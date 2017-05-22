@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import entitys.LoginDataResponse;
 import entitys.SelfInfoBaseDataResponse;
 import services.SelfInfoBaseDaoImp;
+import utils.Log;
 import utils.ResponseCommon;
 import utils.ResponseDesolve;
 import utils.StringUtil;
@@ -29,10 +30,12 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----------------------");
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
 		String uid = request.getParameter("id");
 		String name = request.getParameter("name");
 		String sex = request.getParameter("sex");
-		String idCard = request.getParameter("idcard");
+		String idCard = request.getParameter("idCard");
 		String birthday = request.getParameter("birthday");
 		Map requestMap = request.getParameterMap();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -45,8 +48,9 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 		} else {
 			// ’À∫≈¥Ê‘⁄ —È÷§√‹¬Î
 			SelfInfoBaseDataResponse queryBean = lists.get(0);
-			Object[] params = { StringUtil.isNull(name) ? queryBean.getName() : name, sex, StringUtil.isNull(idCard)?queryBean.getIdCard():idCard,
+			String[] params = { StringUtil.isNull(name) ? queryBean.getName() : name, StringUtil.isNull(sex)?queryBean.getSex():sex, StringUtil.isNull(idCard)?queryBean.getIdCard():idCard,
 					StringUtil.isNull(birthday)?queryBean.getBirthday():birthday};
+			Log.i("Servlet", "paramsBirthday="+params[params.length-1]);
 			baseInfoDao.modify(uid, params);
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
 					ResponseCommon.Msg.SUCCESS_MODIFY);
