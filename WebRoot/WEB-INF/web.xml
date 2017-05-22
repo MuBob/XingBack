@@ -27,6 +27,10 @@
     <servlet-name>SelfInfoBaseServlet</servlet-name>
     <url-pattern>/SelfInfoBaseServlet</url-pattern>
   </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>SelfInfoBaseModifyServlet</servlet-name>
+    <url-pattern>/SelfInfoBaseModifyServlet</url-pattern>
+  </servlet-mapping>
   
   
   

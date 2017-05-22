@@ -17,11 +17,7 @@ import utils.ResponseCommon;
 import utils.ResponseDesolve;
 
 /**
- * login½Ó¿Ú
- * ·µ»Ø true/false
- * url: http://localhost:8080/Xing/SelfInfoBaseServlet?id=123456789&pwd=111111
- * @author WangJinXing
- *
+ * url: http://localhost:8080/Xing/SelfInfoBaseServlet?id=123456789
  */
 public class SelfInfoBaseGetServlet extends HttpServlet {
 

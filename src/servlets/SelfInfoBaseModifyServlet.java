@@ -17,6 +17,9 @@ import utils.ResponseCommon;
 import utils.ResponseDesolve;
 import utils.StringUtil;
 
+/**
+ * url: http://localhost:8080/Xing/SelfInfoBaseModifyServlet?id=123456789&birthday=2017Äê2ÔÂ2ÈÕ
+ */
 public class SelfInfoBaseModifyServlet extends HttpServlet {
 
 	private SelfInfoBaseDaoImp baseInfoDao = null;
@@ -29,7 +32,7 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 		String uid = request.getParameter("id");
 		String name = request.getParameter("name");
 		String sex = request.getParameter("sex");
-		String idCard = request.getParameter("idCard");
+		String idCard = request.getParameter("idcard");
 		String birthday = request.getParameter("birthday");
 		Map requestMap = request.getParameterMap();
 		Map<String, Object> data = new HashMap<String, Object>();
