@@ -37,6 +37,8 @@ public class PasswordModifyServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----------------------");
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
 		String number = request.getParameter("id");
 		String password_old = request.getParameter("pwd_old");
 		String password_new = request.getParameter("pwd_new");

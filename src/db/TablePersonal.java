@@ -12,7 +12,7 @@ public class TablePersonal extends BaseDataBase{
 	public static final String COLUMN_EMAIL="email";
 	public static final String COLUMN_BIRTHDAY="birthday";
 	public static final String COLUMN_HIGHRECORD="high_record";
-	public static final String COLUMN_GRADUTESCHOOL="gradute_school";
+	public static final String COLUMN_GRADUTESCHOOL="graduate_school";
 	public static final String COLUMN_SKILLS_LEVEL="skill_level";
 	public static final String COLUMN_IDDEPARTMENT="id_department";
 	public static final String COLUMN_ROLE="role";
@@ -26,7 +26,7 @@ public class TablePersonal extends BaseDataBase{
 	private String email;
 	private String birthday;
 	private String high_record;
-	private String gradute_school;
+	private String graduate_school;
 	private String skill_level;
 	private String id_department;
 	private String role;
@@ -79,11 +79,11 @@ public class TablePersonal extends BaseDataBase{
 	public void setHigh_record(String high_record) {
 		this.high_record = high_record;
 	}
-	public String getGradute_school() {
-		return gradute_school;
+	public String getGraduate_school() {
+		return graduate_school;
 	}
-	public void setGradute_school(String gradute_school) {
-		this.gradute_school = gradute_school;
+	public void setGraduate_school(String graduate_school) {
+		this.graduate_school = graduate_school;
 	}
 	public String getId_department() {
 		return id_department;
@@ -113,7 +113,7 @@ public class TablePersonal extends BaseDataBase{
 	public String toString() {
 		return "TablePersonalDataBase [id=" + id + ", pwd=" + pwd + ", name=" + name + ", sex=" + sex + ", idcard="
 				+ idcard + ", email=" + email + ", birthday=" + birthday + ", high_record=" + high_record
-				+ ", gradute_school=" + gradute_school + ", skill_level=" + skill_level
+				+ ", graduate_school=" + graduate_school + ", skill_level=" + skill_level
 				+ ", id_department=" + id_department + ", role=" + role + ", title=" + title + "]";
 	}
 }

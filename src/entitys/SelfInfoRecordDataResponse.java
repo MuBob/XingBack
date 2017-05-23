@@ -9,7 +9,7 @@ public class SelfInfoRecordDataResponse extends BaseDataResponse {
 	private static final long serialVersionUID = 5432354265423924066L;
 	private String id;
 	private String highRecord;
-	private String graduteSchool;
+	private String graduateSchool;
 	public String getId() {
 		return id;
 	}
@@ -22,16 +22,16 @@ public class SelfInfoRecordDataResponse extends BaseDataResponse {
 	public void setHigh_record(String highRecord) {
 		this.highRecord = highRecord;
 	}
-	public String getGraduteSchool() {
-		return graduteSchool;
+	public String getGraduateSchool() {
+		return graduateSchool;
 	}
-	public void setGradute_school(String graduateSchool) {
-		this.graduteSchool = graduateSchool;
+	public void setGraduate_school(String graduateSchool) {
+		this.graduateSchool = graduateSchool;
 	}
 	@Override
 	public String toString() {
-		return "SelfInfoRecordDataResponse [id=" + id + ", highRecord=" + highRecord + ", graduteSchool="
-				+ graduteSchool + "]";
+		return "SelfInfoRecordDataResponse [id=" + id + ", highRecord=" + highRecord + ", graduateSchool="
+				+ graduateSchool + "]";
 	}
 	
 }

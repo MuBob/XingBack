@@ -32,14 +32,14 @@ public class SelfInfoRecordDaoImp {
 	}
 
 	public void modify(String id, Object[] params){
-		String sql=String.format("update %s set %s =?, %s=? where %s = ?;",
+		String sql=String.format("update %s set %s =?, %s=? where %s = '%s';",
 				TablePersonal.TABLE_NAME,
 				TablePersonal.COLUMN_HIGHRECORD,
 				TablePersonal.COLUMN_GRADUTESCHOOL,
-				TablePersonal.COLUMN_UID);
+				TablePersonal.COLUMN_UID, id);
 		Log.i("SelfInfoRecordDaoImp", "sql="+sql+"£¬ params="+params);
 		try {
-			runner.update(sql, params, id);
+			runner.update(sql, params);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

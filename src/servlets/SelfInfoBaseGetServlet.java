@@ -29,6 +29,8 @@ public class SelfInfoBaseGetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("----------------------");
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
 		String uid = request.getParameter("id");
 		Map<String, Object> data = new HashMap<String, Object>();
 		String responseStr=null;

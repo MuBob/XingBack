@@ -48,9 +48,9 @@ public class SignInDaoImp {
 				count = -1;
 			}
 		} else {
-			count = signIn.getCount();
-			if (count < totalSignCount) {
-				count++;
+			Log.i("SignInDaoImp.signInToday", "count="+signIn.getCount());
+			count = 1+signIn.getCount();
+			if (count <= totalSignCount) {
 				if (!updateInLog(id, place, time, count)) {
 					// ¸üÐÂÊ§°Ü
 					count = -2;
