@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.LogSignIn;
+import db.LogSignOut;
 import entitys.LoginDataResponse;
-import entitys.SignInDataResponse;
+import entitys.SignOutDataResponse;
 import services.LoginImp;
-import services.SignInDaoImp;
+import services.SignOutDaoImp;
 import utils.DateUtil;
 import utils.Log;
 import utils.ResponseCommon;
@@ -23,21 +22,21 @@ import utils.ResponseDesolve;
 import utils.StringUtil;
 
 /**
- * url: http://localhost:8080/Xing/SignInServlet?id=123456789&place=dfai&sign=true
+ * url: http://localhost:8080/Xing/SignOutServlet?id=123456789&place=dfai&sign=true
  * 
  * @author WangJinXing
  *
  */
-public class SignInServlet extends HttpServlet {
+public class SignOutServlet extends HttpServlet {
 
 	private LoginImp loginDao = null;
-	private SignInDaoImp signInDao = null;
+	private SignOutDaoImp signOutDao = null;
 	private List<LoginDataResponse> lists = null;
 
-	public SignInServlet() {
+	public SignOutServlet() {
 		super();
 		loginDao = new LoginImp();
-		signInDao = new SignInDaoImp();
+		signOutDao = new SignOutDaoImp();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,21 +62,21 @@ public class SignInServlet extends HttpServlet {
 			} else {
 				// ÕËºÅ´æÔÚ ÑéÖ¤ÃÜÂë
 				if (StringUtil.isNull(sign) || sign.equals("false")) {
-					LogSignIn todayBean = signInDao.hasFirstLogToday(id, time);
-					responseStr = ResponseDesolve.getInstance().desolve(new SignInDataResponse(todayBean),
+					LogSignOut todayBean = signOutDao.hasFirstLogToday(id, time);
+					responseStr = ResponseDesolve.getInstance().desolve(new SignOutDataResponse(todayBean),
 							ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 				} else if (sign.equals("true")) {
-					int signCount = signInDao.signInToday(id, place, time);
-					Log.d("SignInServlet", "signCount="+signCount);
+					int signCount = signOutDao.signInToday(id, place, time);
+					Log.d("SignOutServlet", "signCount="+signCount);
 					if (signCount > 2) {
 						responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-								ResponseCommon.Msg.FAILE_SIGN_IN_DUPLIDE);
+								ResponseCommon.Msg.FAILE_SIGN_OUT_DUPLIDE);
 					} else if (signCount > 0) {
 						responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
-								ResponseCommon.Msg.SUCCESS_SIGN_IN);
+								ResponseCommon.Msg.SUCCESS_SIGN_OUT);
 					} else {
 						responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-								ResponseCommon.Msg.FAILE_SIGN_IN);
+								ResponseCommon.Msg.FAILE_SIGN_OUT);
 					}
 				} else {
 					responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,

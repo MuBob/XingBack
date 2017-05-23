@@ -38,10 +38,9 @@ public class SelfInfoSkillDaoImp {
 	}
 
 	public List<TableSkill> querySkillBeanById(String skill_id) {
-		String sql = String.format("select * from %s where %s=%s;", TableSkill.TABLE_NAME, TableSkill.COLUMN_ID,
-				skill_id);
+		String sql = String.format("select * from %s where %s=?;", TableSkill.TABLE_NAME, TableSkill.COLUMN_ID);
 		try {
-			List<TableSkill> list = runner.query(sql, new BeanListHandler<TableSkill>(TableSkill.class));
+			List<TableSkill> list = runner.query(sql, new BeanListHandler<TableSkill>(TableSkill.class), skill_id);
 			return list;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -51,11 +50,11 @@ public class SelfInfoSkillDaoImp {
 	}
 
 	public SelfInfoSkillDataResponse queryById(String id) {
-		String sql = String.format("select %s from %s where %s=%s", TablePersonal.COLUMN_SKILLS_LEVEL,
-				TablePersonal.TABLE_NAME, TablePersonal.COLUMN_UID, id);
+		String sql = String.format("select %s from %s where %s=?", TablePersonal.COLUMN_SKILLS_LEVEL,
+				TablePersonal.TABLE_NAME, TablePersonal.COLUMN_UID);
 		Log.i("SelfInfoRecordDaoImp", "sql=" + sql);
 		try {
-			List<TablePersonal> list = runner.query(sql, new BeanListHandler<TablePersonal>(TablePersonal.class));
+			List<TablePersonal> list = runner.query(sql, new BeanListHandler<TablePersonal>(TablePersonal.class), id);
 			if (list != null && list.size() > 0) {
 				String skillMapStr=list.get(0).getSkill_level();
 				Map<String, String> skillsMap=(Map<String, String>) GsonUtil.fromJsonToObject(skillMapStr, Map.class);
@@ -75,11 +74,11 @@ public class SelfInfoSkillDaoImp {
 	}
 
 	public void modify(String id, String skillLevelStr) {
-		String sql = String.format("update %s set %s=? where %s = %s;", TablePersonal.TABLE_NAME,
-				TablePersonal.COLUMN_SKILLS_LEVEL, TablePersonal.COLUMN_UID, id);
+		String sql = String.format("update %s set %s=? where %s = ?;", TablePersonal.TABLE_NAME,
+				TablePersonal.COLUMN_SKILLS_LEVEL, TablePersonal.COLUMN_UID);
 		Log.i("SelfInfoRecordDaoImp", "sql=" + sql + "£¬ params=" + skillLevelStr);
 		try {
-			runner.update(sql, skillLevelStr);
+			runner.update(sql, skillLevelStr, id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

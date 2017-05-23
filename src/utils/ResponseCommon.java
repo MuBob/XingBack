@@ -11,6 +11,9 @@ public class ResponseCommon {
 		public static final String SUCCESS_SIGN_IN="签到成功";
 		public static final String FAILE_SIGN_IN="签到失败";
 		public static final String FAILE_SIGN_IN_DUPLIDE="已签到，不可重复签到";
+		public static final String SUCCESS_SIGN_OUT="签到成功";
+		public static final String FAILE_SIGN_OUT="签到失败";
+		public static final String FAILE_SIGN_OUT_DUPLIDE="已签到，不可重复签到";
 		
 		public static final String ERROR_FAILE_MODIFY="修改失败";
 		public static final String ERROR_NORMAL="服务器出现异常";

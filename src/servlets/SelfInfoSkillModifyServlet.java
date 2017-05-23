@@ -31,12 +31,10 @@ import utils.StringUtil;
 public class SelfInfoSkillModifyServlet extends HttpServlet {
 
 	private SelfInfoSkillDaoImp infoDao = null;
-	private List<SelfInfoSkillDataResponse> lists = null;
 
 	public SelfInfoSkillModifyServlet() {
 		super();
 		infoDao = new SelfInfoSkillDaoImp();
-		lists = new ArrayList();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -33,7 +33,6 @@ public class PasswordModifyServlet extends HttpServlet {
 	public PasswordModifyServlet() {
 		super();
 		dao = new PasswordManageDaoImp();
-		lists = new ArrayList<LoginDataResponse>();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,10 +45,9 @@ public class PasswordModifyServlet extends HttpServlet {
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
 					ResponseCommon.Msg.ERROR_PARAMS);
 		}
-		lists.clear();
-		lists.addAll(dao.queryById(number));
+		lists=dao.queryById(number);
 		System.out.println(lists);
-		if (lists.size() == 0) {
+		if (lists==null||lists.size() == 0) {
 			// √ª”–∏√’À∫≈
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
 					ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);

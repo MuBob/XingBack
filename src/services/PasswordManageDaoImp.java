@@ -30,12 +30,12 @@ public class PasswordManageDaoImp {
 		return list;
 	}
 	public boolean modify(String id, String pwd) {
-		String sql = String.format("update %s set %s=%s where %s=%s",
+		String sql = String.format("update %s set %s=? where %s=?",
 				TablePersonal.TABLE_NAME,
-				TablePersonal.COLUMN_PASSWORD, pwd,
-				TablePersonal.COLUMN_UID, id);
+				TablePersonal.COLUMN_PASSWORD,
+				TablePersonal.COLUMN_UID);
 		 try {
-			runner.update(sql);
+			runner.update(sql, pwd, id);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

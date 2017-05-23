@@ -32,18 +32,17 @@ public class SelfInfoBaseDaoImp {
 	}
 
 	public void modify(String id, Object[] params){
-		String sql=String.format("update %s set %s =?, %s=?, %s=?, %s=?, %s=? where %s = %s;",
+		String sql=String.format("update %s set %s =?, %s=?, %s=?, %s=?, %s=? where %s = ?;",
 				TablePersonal.TABLE_NAME,
 				TablePersonal.COLUMN_NAME,
 				TablePersonal.COLUMN_SEX,
 				TablePersonal.COLUMN_IDCARD,
 				TablePersonal.COLUMN_BIRTHDAY,
 				TablePersonal.COLUMN_EMAIL,
-				TablePersonal.COLUMN_UID,
-				id);
+				TablePersonal.COLUMN_UID);
 		Log.i("TAG", "sql="+sql+"£¬ params="+params);
 		try {
-			runner.update(sql, params);
+			runner.update(sql, params, id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

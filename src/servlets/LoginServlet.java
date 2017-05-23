@@ -31,7 +31,6 @@ public class LoginServlet extends HttpServlet {
 	public LoginServlet() {
 		super();
 		loginDao = new LoginImp();
-		lists=new ArrayList<LoginDataResponse>();
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,10 +40,9 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("pwd");
 		Map<String, Object> data = new HashMap<String, Object>();
 		String responseStr=null;
-		lists.clear();
-		lists.addAll( loginDao.queryById(number));
+		lists= loginDao.queryById(number);
 		System.out.println(lists);
-		if(lists.size()==0){
+		if(lists==null||lists.size()==0){
 			//没有该账号  创建注册
 //			RegisterDaoImp registerDaoImp = new RegisterDaoImp();
 //			registerDaoImp.Savedata(number, password);

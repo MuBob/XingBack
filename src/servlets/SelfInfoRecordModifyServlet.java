@@ -31,7 +31,6 @@ public class SelfInfoRecordModifyServlet extends HttpServlet {
 	public SelfInfoRecordModifyServlet(){
 		super();
 		infoDao = new SelfInfoRecordDaoImp();
-		lists=new ArrayList();
 	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----------------------");
@@ -41,9 +40,8 @@ public class SelfInfoRecordModifyServlet extends HttpServlet {
 		String highRecord = request.getParameter("high_record");
 		String graduateSchool = request.getParameter("graduate_school");
 		String responseStr = null;
-		lists.clear();
-		lists.addAll(infoDao.queryById(uid));
-		if (lists.size() == 0) {
+		lists=infoDao.queryById(uid);
+		if (lists==null||lists.size() == 0) {
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
 					ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 		} else {
