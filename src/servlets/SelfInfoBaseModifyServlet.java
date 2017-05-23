@@ -19,7 +19,8 @@ import utils.ResponseDesolve;
 import utils.StringUtil;
 
 /**
- * url: http://localhost:8080/Xing/SelfInfoBaseModifyServlet?id=123456789&birthday=2017年2月2日
+ * url:
+ * http://localhost:8080/Xing/SelfInfoBaseModifyServlet?id=123456789&birthday=2017年2月2日
  */
 public class SelfInfoBaseModifyServlet extends HttpServlet {
 
@@ -37,6 +38,7 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 		String sex = request.getParameter("sex");
 		String idCard = request.getParameter("idCard");
 		String birthday = request.getParameter("birthday");
+		String email = request.getParameter("email");
 		Map requestMap = request.getParameterMap();
 		Map<String, Object> data = new HashMap<String, Object>();
 		String responseStr = null;
@@ -48,9 +50,13 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 		} else {
 			// 账号存在 验证密码
 			SelfInfoBaseDataResponse queryBean = lists.get(0);
-			String[] params = { StringUtil.isNull(name) ? queryBean.getName() : name, StringUtil.isNull(sex)?queryBean.getSex():sex, StringUtil.isNull(idCard)?queryBean.getIdCard():idCard,
-					StringUtil.isNull(birthday)?queryBean.getBirthday():birthday};
-			Log.i("Servlet", "paramsBirthday="+params[params.length-1]);
+			String[] params = { StringUtil.isNull(name) ? queryBean.getName() : name,
+					StringUtil.isNull(sex) ? queryBean.getSex() : sex,
+					StringUtil.isNull(idCard) ? queryBean.getIdCard() : idCard,
+					StringUtil.isNull(birthday) ? queryBean.getBirthday() : birthday,
+					StringUtil.isNull(email) ? queryBean.geteMail() : email
+			};
+			Log.i("Servlet", "paramsBirthday=" + params[params.length - 1]);
 			baseInfoDao.modify(uid, params);
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
 					ResponseCommon.Msg.SUCCESS_MODIFY);

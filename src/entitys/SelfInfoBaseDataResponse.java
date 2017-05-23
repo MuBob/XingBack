@@ -11,6 +11,7 @@ public class SelfInfoBaseDataResponse extends BaseDataResponse {
 	private String name;
 	private String sex;
 	private String idCard;
+	private String eMail;
 	private String birthday;
 	public String getId() {
 		return id;
@@ -42,10 +43,17 @@ public class SelfInfoBaseDataResponse extends BaseDataResponse {
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
+	
+	public String geteMail() {
+		return eMail;
+	}
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
 	@Override
 	public String toString() {
 		return "SelfInfoBaseDataResponse [id=" + id + ", name=" + name + ", sex=" + sex + ", idCard=" + idCard
-				+ ", birthday=" + birthday + "]";
+				+ ", eMail=" + eMail + ", birthday=" + birthday + "]";
 	}
 	
 }
