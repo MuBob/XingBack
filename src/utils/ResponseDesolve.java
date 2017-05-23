@@ -29,8 +29,7 @@ public class ResponseDesolve {
 		Log.i("ResponseDesolve.desolve", "BaseBean="+bean);
 		BaseResponse res=new BaseResponse();
 		try{
-			Gson gson=new Gson();
-			String dataStr = gson.toJson(bean);
+			String dataStr = GsonUtil.toJson(bean);
 			res.setData(dataStr);
 		}catch(Exception e){
 			res.setCode(-1);
@@ -38,8 +37,7 @@ public class ResponseDesolve {
 				errMsg="";
 			res.setMsg(errMsg);
 		}
-		Gson gson=new Gson();
-		String str = gson.toJson(res);
+		String str = GsonUtil.toJson(res);
 		return str;
 	}
 	
@@ -49,8 +47,7 @@ public class ResponseDesolve {
 		if(StringUtil.isNull(msg))
 			msg="";
 		res.setMsg(msg);
-		Gson gson=new Gson();
-		String str = gson.toJson(res);
+		String str = GsonUtil.toJson(res);
 		return str;
 	}
 	

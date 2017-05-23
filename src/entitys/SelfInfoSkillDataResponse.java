@@ -1,55 +1,32 @@
 package entitys;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Map;
 
 import db.BaseDataBase;
 
 public class SelfInfoSkillDataResponse extends BaseDataResponse {
-	public SelfInfoSkillDataResponse() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	public SelfInfoSkillDataResponse(BaseDataBase dbBean) {
-		super(dbBean);
-		// TODO Auto-generated constructor stub
+	public SelfInfoSkillDataResponse(Map<String, String> list) {
+		setMap(list);
 	}
 
 	/**
 	* 
 	*/
 	private static final long serialVersionUID = 8901239358437203242L;
-	private String id;
-	private String skillNeme;
-	private String skillLevel;
-
-	public String getId() {
-		return id;
+	private Map<String, String> skillLevel;
+	@Override
+	public String toString() {
+		return "SelfInfoSkillDataResponse [map=" + skillLevel + "]";
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getSkillNeme() {
-		return skillNeme;
-	}
-
-	public void setSkillNeme(String skillNeme) {
-		this.skillNeme = skillNeme;
-	}
-
-	public String getSkillLevel() {
+	public Map<String, String> getMap() {
 		return skillLevel;
 	}
 
-	public void setSkillLevel(String skillLevel) {
-		this.skillLevel = skillLevel;
+	public void setMap(Map<String, String> list) {
+		this.skillLevel = list;
 	}
-
-	@Override
-	public String toString() {
-		return "SelfInfoSkillDataResponse [id=" + id + ", skillNeme=" + skillNeme + ", skillLevel=" + skillLevel + "]";
-	}
-
+	
 }

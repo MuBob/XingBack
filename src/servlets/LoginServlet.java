@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,11 @@ public class LoginServlet extends HttpServlet {
 
 	private LoginImp loginDao = null;
 	private List<LoginDataResponse> lists = null;
-	private String mpassword = null;
-	private Boolean flag;
+	public LoginServlet() {
+		super();
+		loginDao = new LoginImp();
+		lists=new ArrayList<LoginDataResponse>();
+	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -37,10 +41,10 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("pwd");
 		Map<String, Object> data = new HashMap<String, Object>();
 		String responseStr=null;
-		loginDao = new LoginImp();
-		lists = loginDao.queryById(number);
+		lists.clear();
+		lists.addAll( loginDao.queryById(number));
 		System.out.println(lists);
-		if(lists==null||lists.size()==0){
+		if(lists.size()==0){
 			//没有该账号  创建注册
 //			RegisterDaoImp registerDaoImp = new RegisterDaoImp();
 //			registerDaoImp.Savedata(number, password);
