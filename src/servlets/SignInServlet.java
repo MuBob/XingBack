@@ -49,10 +49,11 @@ public class SignInServlet extends HttpServlet {
 		String time = request.getParameter("time");
 		String place = request.getParameter("place");
 		String responseStr = null;
+		Log.i("SignInServlet.doGet", "id="+id);
 		if (StringUtil.isNull(time)) {
 			time = DateUtil.getCurrentTime();
 		}
-		if (StringUtil.isNull(id) || StringUtil.isNull(place)) {
+		if (StringUtil.isNull(id)) {
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
 					ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 		} else {

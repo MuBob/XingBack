@@ -11,26 +11,26 @@ public class SignInDataResponse extends BaseDataResponse{
 
 	public SignInDataResponse(LogSignIn dbBean) {
 		super(dbBean);
-		setSignBean(dbBean);
+		setSignInBean(dbBean);
 	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5658430071665639311L;
-	private LogSignIn signBean;
+	private LogSignIn signInBean;
 
-	public LogSignIn getSignBean() {
-		return signBean;
+	public LogSignIn getSignInBean() {
+		return signInBean;
 	}
 
-	public void setSignBean(LogSignIn signBean) {
-		this.signBean = signBean;
+	public void setSignInBean(LogSignIn signInBean) {
+		this.signInBean = signInBean;
 	}
 
 	@Override
 	public String toString() {
-		return "SignInDataResponse [signBean=" + signBean + "]";
+		return "SignInDataResponse [signBean=" + signInBean + "]";
 	}
 	
 

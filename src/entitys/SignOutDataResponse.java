@@ -11,26 +11,26 @@ public class SignOutDataResponse extends BaseDataResponse{
 
 	public SignOutDataResponse(LogSignOut dbBean) {
 		super(dbBean);
-		setSignBean(dbBean);
+		setSignOutBean(dbBean);
 	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5658430071665639311L;
-	private LogSignOut signBean;
+	private LogSignOut signOutBean;
 
-	public LogSignOut getSignBean() {
-		return signBean;
+	public LogSignOut getSignOutBean() {
+		return signOutBean;
 	}
 
-	public void setSignBean(LogSignOut signBean) {
-		this.signBean = signBean;
+	public void setSignOutBean(LogSignOut signOutBean) {
+		this.signOutBean = signOutBean;
 	}
 
 	@Override
 	public String toString() {
-		return "SignOutDataResponse [signBean=" + signBean + "]";
+		return "SignOutDataResponse [signOutBean=" + signOutBean + "]";
 	}
 	
 
