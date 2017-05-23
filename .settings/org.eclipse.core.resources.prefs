@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/db/TableSkill.java=UTF-8
 encoding//src/entitys/SelfInfoBaseDataResponse.java=UTF-8
 encoding//src/entitys/SelfInfoRecordDataResponse.java=UTF-8
 encoding//src/entitys/SelfInfoSkillDataResponse.java=UTF-8

@@ -2,11 +2,16 @@ package entitys;
 
 import java.io.Serializable;
 
-public class BaseDataResponse implements Serializable{
+import db.BaseDataBase;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1149980269025369369L;
+public abstract class BaseDataResponse implements Serializable {
+
+	public BaseDataResponse() {
+
+	}
+
+	public BaseDataResponse(BaseDataBase dbBean) {
+
+	}
 
 }

@@ -2,7 +2,18 @@ package entitys;
 
 import java.util.Date;
 
+import db.BaseDataBase;
+
 public class SelfInfoBaseDataResponse extends BaseDataResponse {
+	
+	public SelfInfoBaseDataResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public SelfInfoBaseDataResponse(BaseDataBase dbBean) {
+		super(dbBean);
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * 
 	 */

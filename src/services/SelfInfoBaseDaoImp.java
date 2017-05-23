@@ -2,13 +2,12 @@ package services;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import db.TablePersonal;
 import entitys.SelfInfoBaseDataResponse;
-import manager.DataBaseManager;
 import utils.DataSourceManager;
 import utils.Log;
 
@@ -34,13 +33,13 @@ public class SelfInfoBaseDaoImp {
 
 	public void modify(String id, Object[] params){
 		String sql=String.format("update %s set %s =?, %s=?, %s=?, %s=?, %s=? where %s = %s;",
-				DataBaseManager.TablePersonal.TABLE_NAME,
-				DataBaseManager.TablePersonal.COLUMN_NAME,
-				DataBaseManager.TablePersonal.COLUMN_SEX,
-				DataBaseManager.TablePersonal.COLUMN_IDCARD,
-				DataBaseManager.TablePersonal.COLUMN_BIRTHDAY,
-				DataBaseManager.TablePersonal.COLUMN_EMAIL,
-				DataBaseManager.TablePersonal.COLUMN_UID,
+				TablePersonal.TABLE_NAME,
+				TablePersonal.COLUMN_NAME,
+				TablePersonal.COLUMN_SEX,
+				TablePersonal.COLUMN_IDCARD,
+				TablePersonal.COLUMN_BIRTHDAY,
+				TablePersonal.COLUMN_EMAIL,
+				TablePersonal.COLUMN_UID,
 				id);
 		Log.i("TAG", "sql="+sql+"£¬ params="+params);
 		try {
