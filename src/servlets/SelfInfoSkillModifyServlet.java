@@ -47,39 +47,44 @@ public class SelfInfoSkillModifyServlet extends HttpServlet {
 		String civil = request.getParameter("civil");
 		String safety = request.getParameter("safety");
 		String responseStr = null;
-		SelfInfoSkillDataResponse querySkillById = infoDao.queryById(uid);
-		if (querySkillById == null) {
-			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-					ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
+		if (StringUtil.isNull(uid)) {
+			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
+					ResponseCommon.Msg.ERROR_PARAMS);
 		} else {
-			Map<String, String> querySkillMap = querySkillById.getMap();
-			Set<String> keySet = querySkillMap.keySet();
-			Iterator<String> iterator = keySet.iterator();
-			Map<String, String> modifyMap = new HashMap<String, String>();
-			while (iterator.hasNext()) {
-				String nextId = iterator.next();
-				// 先获取当前更新中有该条id的更新
-				String nextLevel = getLevelById(nextId, accounting, computer, civil, safety);
-				// 在当前没有更新的前提下，判断数据库之前是否有这条数据，有就更新获取之前的旧数据
-				if (StringUtil.isNull(nextLevel)) {
-					nextLevel = querySkillMap.get(nextId);
+			SelfInfoSkillDataResponse querySkillById = infoDao.queryById(uid);
+			if (querySkillById == null) {
+				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
+						ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
+			} else {
+				Map<String, String> querySkillMap = querySkillById.getMap();
+				Set<String> keySet = querySkillMap.keySet();
+				Iterator<String> iterator = keySet.iterator();
+				Map<String, String> modifyMap = new HashMap<String, String>();
+				while (iterator.hasNext()) {
+					String nextId = iterator.next();
+					// 先获取当前更新中有该条id的更新
+					String nextLevel = getLevelById(nextId, accounting, computer, civil, safety);
+					// 在当前没有更新的前提下，判断数据库之前是否有这条数据，有就更新获取之前的旧数据
+					if (StringUtil.isNull(nextLevel)) {
+						nextLevel = querySkillMap.get(nextId);
+					}
+					modifyMap.put(nextId, nextLevel);
 				}
-				modifyMap.put(nextId, nextLevel);
-			}
-			List<TableSkill> allSkillBeans = infoDao.queryAllSkillBeans();
-			for (int i = 0; i < allSkillBeans.size(); i++) {
-				TableSkill skillBean = allSkillBeans.get(i);
-				String nextLevel = getLevelById(skillBean.get_id(), accounting, computer, civil, safety);
-				if (!StringUtil.isNull(nextLevel)) {
-					modifyMap.put(skillBean.get_id(), nextLevel);
+				List<TableSkill> allSkillBeans = infoDao.queryAllSkillBeans();
+				for (int i = 0; i < allSkillBeans.size(); i++) {
+					TableSkill skillBean = allSkillBeans.get(i);
+					String nextLevel = getLevelById(skillBean.get_id(), accounting, computer, civil, safety);
+					if (!StringUtil.isNull(nextLevel)) {
+						modifyMap.put(skillBean.get_id(), nextLevel);
+					}
 				}
+
+				String skillLevelMapStr = GsonUtil.toJson(modifyMap);
+
+				infoDao.modify(uid, skillLevelMapStr);
+				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
+						ResponseCommon.Msg.SUCCESS_MODIFY);
 			}
-
-			String skillLevelMapStr = GsonUtil.toJson(modifyMap);
-
-			infoDao.modify(uid, skillLevelMapStr);
-			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
-					ResponseCommon.Msg.SUCCESS_MODIFY);
 		}
 		// System.out.println(data);
 		// CommonUtil.renderJson(response, data);

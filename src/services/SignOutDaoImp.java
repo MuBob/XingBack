@@ -36,13 +36,13 @@ public class SignOutDaoImp {
 		return list;
 	}
 
-	public int signInToday(String id, String place, String time) {
+	public int signToday(String id, String place, String time) {
 		int totalSignCount=2;
 		LogSignOut signIn = hasFirstLogToday(id, time);
 		int count = 0;
 		if (signIn == null) {
 			// 第一次插入，count=1
-			if (insertInLog(id, place, time)) {
+			if (insertLog(id, place, time)) {
 				count = 1;
 			} else {
 				// 插入失败
@@ -52,7 +52,7 @@ public class SignOutDaoImp {
 			count = signIn.getCount();
 			if (count < totalSignCount) {
 				count++;
-				if (!updateInLog(id, place, time, count)) {
+				if (!updateLog(id, place, time, count)) {
 					// 更新失败
 					count = -2;
 				}
@@ -61,7 +61,7 @@ public class SignOutDaoImp {
 		return count;
 	}
 
-	public boolean updateInLog(String id, String place, String time, int count) {
+	public boolean updateLog(String id, String place, String time, int count) {
 		/*String sql = String.format("update %s set %s=?, %s=?,%s=? where %s=?", LogSignIn.TABLE_NAME,
 				LogSignIn.COLUMN_PLACE2, place, LogSignIn.COLUMN_TIME2, time, LogSignIn.COLUMN_COUNT, count,
 				LogSignIn.COLUMN_UID, id);*/
@@ -79,7 +79,7 @@ public class SignOutDaoImp {
 		return false;
 	}
 
-	public boolean insertInLog(String id, String place, String time) {
+	public boolean insertLog(String id, String place, String time) {
 		String sql = String.format("insert into %s(%s, %s, %s) values(?,?,?)", LogSignOut.TABLE_NAME,
 				LogSignOut.COLUMN_UID, LogSignOut.COLUMN_PLACE, LogSignOut.COLUMN_TIME);
 		try {

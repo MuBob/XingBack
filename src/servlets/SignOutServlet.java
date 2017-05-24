@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import db.LogSignOut;
 import entitys.LoginDataResponse;
 import entitys.SignOutDataResponse;
-import services.LoginImp;
+import services.LoginDaoImp;
 import services.SignOutDaoImp;
 import utils.DateUtil;
 import utils.Log;
@@ -29,13 +29,13 @@ import utils.StringUtil;
  */
 public class SignOutServlet extends HttpServlet {
 
-	private LoginImp loginDao = null;
+	private LoginDaoImp loginDao = null;
 	private SignOutDaoImp signOutDao = null;
 	private List<LoginDataResponse> lists = null;
 
 	public SignOutServlet() {
 		super();
-		loginDao = new LoginImp();
+		loginDao = new LoginDaoImp();
 		signOutDao = new SignOutDaoImp();
 	}
 
@@ -51,9 +51,9 @@ public class SignOutServlet extends HttpServlet {
 		if (StringUtil.isNull(time)) {
 			time = DateUtil.getCurrentTime();
 		}
-		if (StringUtil.isNull(id) || StringUtil.isNull(place)) {
-			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-					ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
+		if (StringUtil.isNull(id)) {
+			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
+					ResponseCommon.Msg.ERROR_PARAMS);
 		} else {
 			Map<String, Object> data = new HashMap<String, Object>();
 			lists = loginDao.queryById(id);
@@ -68,7 +68,7 @@ public class SignOutServlet extends HttpServlet {
 					responseStr = ResponseDesolve.getInstance().desolve(new SignOutDataResponse(todayBean),
 							ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 				} else if (sign.equals("true")) {
-					int signCount = signOutDao.signInToday(id, place, time);
+					int signCount = signOutDao.signToday(id, place, time);
 					Log.d("SignOutServlet", "signCount="+signCount);
 					if (signCount > 2) {
 						responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,

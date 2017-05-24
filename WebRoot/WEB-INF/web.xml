@@ -78,6 +78,18 @@
 		<servlet-name>SignOutServlet</servlet-name>
 		<servlet-class>servlets.SignOutServlet</servlet-class>
 	</servlet>
+		<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>ApplyLeaveServlet</servlet-name>
+		<servlet-class>servlets.ApplyLeaveServlet</servlet-class>
+	</servlet>
+		<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>ApplyTripServlet</servlet-name>
+		<servlet-class>servlets.ApplyTripServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
@@ -118,6 +130,14 @@
 	<servlet-mapping>
 		<servlet-name>SignOutServlet</servlet-name>
 		<url-pattern>/SignOutServlet</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ApplyLeaveServlet</servlet-name>
+		<url-pattern>/ApplyLeaveServlet</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ApplyTripServlet</servlet-name>
+		<url-pattern>/ApplyTripServlet</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

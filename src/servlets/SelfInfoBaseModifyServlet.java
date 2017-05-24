@@ -29,6 +29,11 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 	private String mpassword = null;
 	private Boolean flag;
 
+	public SelfInfoBaseModifyServlet() {
+		super();
+		baseInfoDao = new SelfInfoBaseDaoImp();
+	}
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----------------------");
 		response.setContentType("text/html;charset=utf-8");
@@ -42,7 +47,10 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 		Map requestMap = request.getParameterMap();
 		Map<String, Object> data = new HashMap<String, Object>();
 		String responseStr = null;
-		baseInfoDao = new SelfInfoBaseDaoImp();
+		if (StringUtil.isNull(uid)) {
+			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
+					ResponseCommon.Msg.ERROR_PARAMS);
+		} else {
 		lists = baseInfoDao.queryById(uid);
 		if (lists == null || lists.size() == 0) {
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
@@ -60,6 +68,7 @@ public class SelfInfoBaseModifyServlet extends HttpServlet {
 			baseInfoDao.modify(uid, params);
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
 					ResponseCommon.Msg.SUCCESS_MODIFY);
+		}
 		}
 		// System.out.println(data);
 		// CommonUtil.renderJson(response, data);

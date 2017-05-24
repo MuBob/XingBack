@@ -14,6 +14,10 @@ public class ResponseCommon {
 		public static final String SUCCESS_SIGN_OUT="签到成功";
 		public static final String FAILE_SIGN_OUT="签到失败";
 		public static final String FAILE_SIGN_OUT_DUPLIDE="已签到，不可重复签到";
+		public static final String SUCCESS_APPLY_LEAVE="请假申请成功，请等待人事专员回复";
+		public static final String FAILE_APPLY_LEAVE="请假申请失败，请联系人事专员";
+		public static final String SUCCESS_APPLY_TRIP="出差申请成功，请等待人事专员回复";
+		public static final String FAILE_APPLY_TRIP="出差申请失败，请联系人事专员";
 		
 		public static final String ERROR_FAILE_MODIFY="修改失败";
 		public static final String ERROR_NORMAL="服务器出现异常";

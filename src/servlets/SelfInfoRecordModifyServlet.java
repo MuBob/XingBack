@@ -20,18 +20,19 @@ import utils.ResponseDesolve;
 import utils.StringUtil;
 
 /**
- * url:
- * http://localhost:8080/Xing/SelfInfoRecordModifyServlet?id=123456789&highRecord=最高学历
+ * url: http://localhost:8080/Xing/SelfInfoRecordModifyServlet?id=123456789&
+ * highRecord=最高学历
  */
 public class SelfInfoRecordModifyServlet extends HttpServlet {
 
 	private SelfInfoRecordDaoImp infoDao = null;
 	private List<SelfInfoRecordDataResponse> lists = null;
 
-	public SelfInfoRecordModifyServlet(){
+	public SelfInfoRecordModifyServlet() {
 		super();
 		infoDao = new SelfInfoRecordDaoImp();
 	}
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----------------------");
 		response.setContentType("text/html;charset=utf-8");
@@ -40,23 +41,27 @@ public class SelfInfoRecordModifyServlet extends HttpServlet {
 		String highRecord = request.getParameter("highRecord");
 		String graduateSchool = request.getParameter("graduateSchool");
 		String responseStr = null;
-		lists=infoDao.queryById(uid);
-		if (lists==null||lists.size() == 0) {
-			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-					ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
+		if (StringUtil.isNull(uid)) {
+			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
+					ResponseCommon.Msg.ERROR_PARAMS);
 		} else {
-			// 账号存在 验证密码
-			SelfInfoRecordDataResponse queryBean = lists.get(0);
-			Log.i("SelfInfoRecordModifyServlet.doGet", "graduateSchool="+graduateSchool);
-			String[] params = { StringUtil.isNull(highRecord) ? queryBean.getHighRecord() : highRecord,
-					StringUtil.isNull(graduateSchool) ? queryBean.getGraduateSchool() : graduateSchool,
-			};
-			infoDao.modify(uid, params);
-			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
-					ResponseCommon.Msg.SUCCESS_MODIFY);
+			lists = infoDao.queryById(uid);
+			if (lists == null || lists.size() == 0) {
+				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
+						ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
+			} else {
+				// 账号存在 验证密码
+				SelfInfoRecordDataResponse queryBean = lists.get(0);
+				Log.i("SelfInfoRecordModifyServlet.doGet", "graduateSchool=" + graduateSchool);
+				String[] params = { StringUtil.isNull(highRecord) ? queryBean.getHighRecord() : highRecord,
+						StringUtil.isNull(graduateSchool) ? queryBean.getGraduateSchool() : graduateSchool, };
+				infoDao.modify(uid, params);
+				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
+						ResponseCommon.Msg.SUCCESS_MODIFY);
+			}
+			// System.out.println(data);
+			// CommonUtil.renderJson(response, data);
 		}
-		// System.out.println(data);
-		// CommonUtil.renderJson(response, data);
 		ResponseDesolve.getInstance().sendResponse(responseStr, request, response);
 	}
 

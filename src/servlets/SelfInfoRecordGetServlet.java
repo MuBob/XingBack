@@ -15,6 +15,7 @@ import entitys.SelfInfoRecordDataResponse;
 import services.SelfInfoRecordDaoImp;
 import utils.ResponseCommon;
 import utils.ResponseDesolve;
+import utils.StringUtil;
 
 /**
  * url: http://localhost:8080/Xing/SelfInfoRecordGetServlet?id=123456789
@@ -23,35 +24,44 @@ public class SelfInfoRecordGetServlet extends HttpServlet {
 
 	private SelfInfoRecordDaoImp infoDao = null;
 	private List<SelfInfoRecordDataResponse> lists = null;
+
 	
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public SelfInfoRecordGetServlet() {
+		super();
+		infoDao = new SelfInfoRecordDaoImp();
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----------------------");
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		String uid = request.getParameter("id");
 		Map<String, Object> data = new HashMap<String, Object>();
-		String responseStr=null;
-		infoDao = new SelfInfoRecordDaoImp();
-		lists = infoDao.queryById(uid);
-		System.out.println(lists);
-		if(lists==null||lists.size()==0){
-			responseStr=ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE, ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
-		}else{
-			//’À∫≈¥Ê‘⁄  —È÷§√‹¬Î
-			for(int i=0;i<lists.size();i++){
-				SelfInfoRecordDataResponse infoResponse=lists.get(i);
-				responseStr=ResponseDesolve.getInstance().desolve(infoResponse, ResponseCommon.Msg.ERROR_NORMAL);
-				break;
+		String responseStr = null;
+		if (StringUtil.isNull(uid)) {
+			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
+					ResponseCommon.Msg.ERROR_PARAMS);
+		} else {
+			lists = infoDao.queryById(uid);
+			System.out.println(lists);
+			if (lists == null || lists.size() == 0) {
+				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
+						ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
+			} else {
+				// ’À∫≈¥Ê‘⁄ —È÷§√‹¬Î
+				for (int i = 0; i < lists.size(); i++) {
+					SelfInfoRecordDataResponse infoResponse = lists.get(i);
+					responseStr = ResponseDesolve.getInstance().desolve(infoResponse, ResponseCommon.Msg.ERROR_NORMAL);
+					break;
+				}
 			}
+			// System.out.println(data);
+			// CommonUtil.renderJson(response, data);
 		}
-//		System.out.println(data);
-//		CommonUtil.renderJson(response, data);
 		ResponseDesolve.getInstance().sendResponse(responseStr, request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
