@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import db.LogLeave;
 import db.LogSignOut;
+import db.LogTrip;
 import entitys.LoginDataResponse;
 import utils.DataSourceManager;
 import utils.Log;
@@ -94,7 +95,7 @@ public class LogLeaveDaoImp {
 	 * 未回复的列表
 	 * @return
 	 */
-	public List<LogLeave> queryListNoReply(String applyId) {
+	public List<LogLeave> queryListByApplyId(String applyId, int replyType) {
 		String sqlAll = String.format("select * from %s where %s=?;",
 				LogLeave.TABLE_NAME, LogLeave.COLUMN_REPLY_TYPE);
 		String sqlId = String.format("select * from %s where %s=? and %s=?;",
@@ -103,9 +104,9 @@ public class LogLeaveDaoImp {
 		List<LogLeave> list = null;
 		try {
 			if (StringUtil.isNull(applyId)) {
-				list = runner.query(sqlAll, new BeanListHandler<LogLeave>(LogLeave.class), 0);
+				list = runner.query(sqlAll, new BeanListHandler<LogLeave>(LogLeave.class), replyType);
 			}else {
-			list = runner.query(sqlId, new BeanListHandler<LogLeave>(LogLeave.class),applyId, 0);
+			list = runner.query(sqlId, new BeanListHandler<LogLeave>(LogLeave.class),applyId, replyType);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -113,6 +114,7 @@ public class LogLeaveDaoImp {
 		}
 		return list;
 	}
+	
 	
 	public boolean updateApplyTimeById(String id, String time, String reason) {
 		String sql = String.format("update %s set %s=?, %s=? where %s=?", LogLeave.TABLE_NAME,
@@ -129,18 +131,17 @@ public class LogLeaveDaoImp {
 	}
 
 
-	public boolean updateLogById(String id, String reply, String time, String reason) {
+	public int updateLogById(String id, int reply, String time, String reason) {
 		String sql = String.format("update %s set %s=?, %s=?,%s=? where %s=?", LogLeave.TABLE_NAME,
 				LogLeave.COLUMN_REPLY_TYPE, LogLeave.COLUMN_REPLY_TIME, LogLeave.COLUMN_REPLY_REASON, LogLeave.COLUMN_ID);
 		Log.i("SignManageDaoImp.updateInLog", "sql="+sql);
 		try {
-			runner.update(sql, reply, time, reason, id);
-			return true;
+			return runner.update(sql, reply, time, reason, id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
 
 	public boolean insertLog(String uid, String time, String dayStart, String dayEnd, String reason, String picture) {

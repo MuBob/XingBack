@@ -47,14 +47,11 @@ public class LoginServlet extends HttpServlet {
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
 					ResponseCommon.Msg.ERROR_PARAMS);
 		} else {
-
 			lists = loginDao.queryById(number);
 			System.out.println(lists);
-			if (lists == null || lists.size() == 0) {
-				// 没有该账号 创建注册
-				// RegisterDaoImp registerDaoImp = new RegisterDaoImp();
-				// registerDaoImp.Savedata(number, password);
-				// data.put("result", "注册成功");
+			if (lists==null) {
+				responseStr=ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE, ResponseCommon.Msg.ERROR_NORMAL);
+			}else if (lists.size()<=0) {
 				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
 						ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 			} else {

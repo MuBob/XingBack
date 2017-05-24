@@ -18,79 +18,151 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>登录</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>servlets.LoginServlet</servlet-class>
 	</servlet>
 
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>获取个人基本信息</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SelfInfoBaseGetServlet</servlet-name>
 		<servlet-class>servlets.SelfInfoBaseGetServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>修改个人基本信息</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SelfInfoBaseModifyServlet</servlet-name>
 		<servlet-class>servlets.SelfInfoBaseModifyServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>获取个人学历信息</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SelfInfoRecordGetServlet</servlet-name>
 		<servlet-class>servlets.SelfInfoRecordGetServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>修改个人学历信息</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SelfInfoRecordModifyServlet</servlet-name>
 		<servlet-class>servlets.SelfInfoRecordModifyServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>获取个人技能信息</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SelfInfoSkillGetServlet</servlet-name>
 		<servlet-class>servlets.SelfInfoSkillGetServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>修改个人技能信息</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SelfInfoSkillModifyServlet</servlet-name>
 		<servlet-class>servlets.SelfInfoSkillModifyServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>修改密码</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>PasswordModifyServlet</servlet-name>
 		<servlet-class>servlets.PasswordModifyServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>签到接口</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SignInServlet</servlet-name>
 		<servlet-class>servlets.SignInServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component</description>
+		<description>签退接口</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>SignOutServlet</servlet-name>
 		<servlet-class>servlets.SignOutServlet</servlet-class>
 	</servlet>
-		<servlet>
-		<description>This is the description of my J2EE component</description>
+	<servlet>
+		<description>申请请假接口</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>ApplyLeaveServlet</servlet-name>
 		<servlet-class>servlets.ApplyLeaveServlet</servlet-class>
 	</servlet>
-		<servlet>
-		<description>This is the description of my J2EE component</description>
+	<servlet>
+		<description>申请出差接口</description>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>ApplyTripServlet</servlet-name>
 		<servlet-class>servlets.ApplyTripServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>获取部门列表</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>DepartmentListGetServlet</servlet-name>
+		<servlet-class>servlets.DepartmentListGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>添加部门</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>DepartmentAddServlet</servlet-name>
+		<servlet-class>servlets.DepartmentAddServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>删除部门</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>DepartmentDelServlet</servlet-name>
+		<servlet-class>servlets.DepartmentDelServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>获取员工列表</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>PersonalListGetServlet</servlet-name>
+		<servlet-class>servlets.PersonalListGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>员工添加</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>PersonalAddServlet</servlet-name>
+		<servlet-class>servlets.PersonalAddServlet</servlet-class>
+	</servlet>
 
+	<servlet>
+		<description>员工删除</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>PersonalDelServlet</servlet-name>
+		<servlet-class>servlets.PersonalDelServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>员工部门调转接口</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>PersonalTurnDepartmentServlet</servlet-name>
+		<servlet-class>servlets.PersonalTurnDepartmentServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>考勤信息添加</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>AttendanceAddServlet</servlet-name>
+		<servlet-class>servlets.AttendanceAddServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>未回复出差申请人员列表</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>UnReplyTripListGetServlet</servlet-name>
+		<servlet-class>servlets.UnReplyTripListGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>回复出差申请</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>ReplyTripServlet</servlet-name>
+		<servlet-class>servlets.ReplyTripServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>未回复请假申请人员列表</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>UnReplyLeaveListGetServlet</servlet-name>
+		<servlet-class>servlets.UnReplyLeaveListGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>回复请假申请</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>ReplyLeaveServlet</servlet-name>
+		<servlet-class>servlets.ReplyLeaveServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/LoginServlet</url-pattern>
@@ -131,13 +203,60 @@
 		<servlet-name>SignOutServlet</servlet-name>
 		<url-pattern>/SignOutServlet</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>ApplyLeaveServlet</servlet-name>
 		<url-pattern>/ApplyLeaveServlet</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>ApplyTripServlet</servlet-name>
 		<url-pattern>/ApplyTripServlet</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>DepartmentListGetServlet</servlet-name>
+		<url-pattern>/DepartmentListGetServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DepartmentAddServlet</servlet-name>
+		<url-pattern>/DepartmentAddServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DepartmentDelServlet</servlet-name>
+		<url-pattern>/DepartmentDelServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersonalListGetServlet</servlet-name>
+		<url-pattern>/PersonalListGetServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersonalAddServlet</servlet-name>
+		<url-pattern>/PersonalAddServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersonalDelServlet</servlet-name>
+		<url-pattern>/PersonalDelServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersonalTurnDepartmentServlet</servlet-name>
+		<url-pattern>/PersonalTurnDepartmentServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AttendanceAddServlet</servlet-name>
+		<url-pattern>/AttendanceAddServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UnReplyTripListGetServlet</servlet-name>
+		<url-pattern>/UnReplyTripListGetServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReplyTripServlet</servlet-name>
+		<url-pattern>/ReplyTripServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UnReplyLeaveListGetServlet</servlet-name>
+		<url-pattern>/UnReplyLeaveListGetServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReplyLeaveServlet</servlet-name>
+		<url-pattern>/ReplyLeaveServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

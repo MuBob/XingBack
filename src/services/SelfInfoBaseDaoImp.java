@@ -18,7 +18,7 @@ public class SelfInfoBaseDaoImp {
 		runner = new QueryRunner(DataSourceManager.getSource());
 	}
 	public List<SelfInfoBaseDataResponse> queryById(String id) {
-		String sql="select * from table_personal where id=?";
+		String sql=String.format("select * from %s where %s=?", TablePersonal.TABLE_NAME, TablePersonal.COLUMN_UID);
 		Log.i("TAG", "sql="+sql);
 		List<SelfInfoBaseDataResponse> list = null;
 		try {

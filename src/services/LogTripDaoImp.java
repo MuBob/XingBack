@@ -23,9 +23,8 @@ public class LogTripDaoImp {
 		runner = new QueryRunner(DataSourceManager.getSource());
 	}
 
-	public List<LogTrip> queryAll(String id) {
-		String sql = String.format("select * from %s",
-				LogTrip.TABLE_NAME);
+	public List<LogTrip> queryAll() {
+		String sql = String.format("select * from %s", LogTrip.TABLE_NAME);
 		// TODO Auto-generated method stub
 		List<LogTrip> list = null;
 		try {
@@ -36,10 +35,9 @@ public class LogTripDaoImp {
 		}
 		return list;
 	}
-	
+
 	public List<LogTrip> queryByApplyId(String applyId) {
-		String sql = String.format("select * from %s where %s=?",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_APPLY);
+		String sql = String.format("select * from %s where %s=?", LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_APPLY);
 		// TODO Auto-generated method stub
 		List<LogTrip> list = null;
 		try {
@@ -50,9 +48,10 @@ public class LogTripDaoImp {
 		}
 		return list;
 	}
+
 	public List<LogTrip> queryByApplyId(String applyId, String dayStart, String dayEnd) {
-		String sql = String.format("select * from %s where %s=? and %s=? and %s=?;",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_DAY_START, LogTrip.COLUMN_DAY_END);
+		String sql = String.format("select * from %s where %s=? and %s=? and %s=?;", LogTrip.TABLE_NAME,
+				LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_DAY_START, LogTrip.COLUMN_DAY_END);
 		// TODO Auto-generated method stub
 		List<LogTrip> list = null;
 		try {
@@ -63,9 +62,9 @@ public class LogTripDaoImp {
 		}
 		return list;
 	}
+
 	public List<LogTrip> queryByReplyId(String replyId) {
-		String sql = String.format("select * from %s where %s=?",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_REPLY);
+		String sql = String.format("select * from %s where %s=?", LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_REPLY);
 		// TODO Auto-generated method stub
 		List<LogTrip> list = null;
 		try {
@@ -78,8 +77,7 @@ public class LogTripDaoImp {
 	}
 
 	public List<LogTrip> queryById(String id) {
-		String sql = String.format("select * from %s where %s=?",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_ID);
+		String sql = String.format("select * from %s where %s=?", LogTrip.TABLE_NAME, LogTrip.COLUMN_ID);
 		// TODO Auto-generated method stub
 		List<LogTrip> list = null;
 		try {
@@ -90,23 +88,23 @@ public class LogTripDaoImp {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 未回复的列表
+	 * 
 	 * @return
 	 */
-	public List<LogTrip> queryListNoReply(String applyId) {
-		String sqlAll = String.format("select * from %s where %s=?;",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_REPLY_TYPE);
-		String sqlId = String.format("select * from %s where %s=? and %s=?;",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_REPLY_TYPE);
+	public List<LogTrip> queryListByReplyType(String applyId, int replyType) {
+		String sqlAll = String.format("select * from %s where %s=?;", LogTrip.TABLE_NAME, LogTrip.COLUMN_REPLY_TYPE);
+		String sqlId = String.format("select * from %s where %s=? and %s=?;", LogTrip.TABLE_NAME,
+				LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_REPLY_TYPE);
 		// TODO Auto-generated method stub
 		List<LogTrip> list = null;
 		try {
 			if (StringUtil.isNull(applyId)) {
-				list = runner.query(sqlAll, new BeanListHandler<LogTrip>(LogTrip.class), 0);
-			}else {
-			list = runner.query(sqlId, new BeanListHandler<LogTrip>(LogTrip.class),applyId, 0);
+				list = runner.query(sqlAll, new BeanListHandler<LogTrip>(LogTrip.class), replyType);
+			} else {
+				list = runner.query(sqlId, new BeanListHandler<LogTrip>(LogTrip.class), applyId, replyType);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -114,11 +112,11 @@ public class LogTripDaoImp {
 		}
 		return list;
 	}
-	
+
 	public boolean updateApplyTimeById(String id, String time, String way, String matters) {
-		String sql = String.format("update %s set %s=?, %s=? where %s=?", LogTrip.TABLE_NAME,
-				LogTrip.COLUMN_TIME_APPLY, LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS, LogTrip.COLUMN_ID);
-		Log.i("SignManageDaoImp.updateInLog", "sql="+sql);
+		String sql = String.format("update %s set %s=?, %s=? where %s=?", LogTrip.TABLE_NAME, LogTrip.COLUMN_TIME_APPLY,
+				LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS, LogTrip.COLUMN_ID);
+		Log.i("SignManageDaoImp.updateInLog", "sql=" + sql);
 		try {
 			runner.update(sql, time, way, matters, id);
 			return true;
@@ -129,24 +127,25 @@ public class LogTripDaoImp {
 		return false;
 	}
 
-
-	public boolean updateLogById(String id, String reply, String time, String reason) {
+	public int updateLogById(String id, int reply, String time, String reason) {
 		String sql = String.format("update %s set %s=?, %s=?,%s=? where %s=?", LogTrip.TABLE_NAME,
 				LogTrip.COLUMN_REPLY_TYPE, LogTrip.COLUMN_REPLY_TIME, LogTrip.COLUMN_REPLY_REASON, LogTrip.COLUMN_ID);
-		Log.i("SignManageDaoImp.updateInLog", "sql="+sql);
+		Log.i("SignManageDaoImp.updateInLog", "sql=" + sql);
 		try {
-			runner.update(sql, reply, time, reason, id);
-			return true;
+			return runner.update(sql, reply, time, reason, id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
 
-	public boolean insertLog(String uid, String time, String dayStart, String dayEnd, String days, String way, String matters) {
-		String sql = String.format("insert into %s(%s, %s, %s, %s, %s, %s, %s, &s) values(?, ?, ?,?,?,?,?,?)", LogTrip.TABLE_NAME,
-				LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_TIME_APPLY, LogTrip.COLUMN_DAY_START, LogTrip.COLUMN_DAY_END, LogTrip.COLUMN_DAYS, LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS, LogTrip.COLUMN_REPLY_TYPE);
+	public boolean insertLog(String uid, String time, String dayStart, String dayEnd, String days, String way,
+			String matters) {
+		String sql = String.format("insert into %s(%s, %s, %s, %s, %s, %s, %s, &s) values(?, ?, ?,?,?,?,?,?)",
+				LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_TIME_APPLY, LogTrip.COLUMN_DAY_START,
+				LogTrip.COLUMN_DAY_END, LogTrip.COLUMN_DAYS, LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS,
+				LogTrip.COLUMN_REPLY_TYPE);
 		try {
 			runner.update(sql, uid, time, dayStart, dayEnd, days, way, matters, 0);
 			return true;
@@ -156,6 +155,5 @@ public class LogTripDaoImp {
 		}
 		return false;
 	}
-
 
 }
