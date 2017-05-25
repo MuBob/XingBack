@@ -113,12 +113,12 @@ public class LogTripDaoImp {
 		return list;
 	}
 
-	public boolean updateApplyTimeById(String id, String time, String way, String matters) {
-		String sql = String.format("update %s set %s=?, %s=? where %s=?", LogTrip.TABLE_NAME, LogTrip.COLUMN_TIME_APPLY,
-				LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS, LogTrip.COLUMN_ID);
+	public boolean updateApplyTimeById(String id, String time, String way, String matters, String place) {
+		String sql = String.format("update %s set %s=?, %s=?, %s=? where %s=?", LogTrip.TABLE_NAME, LogTrip.COLUMN_TIME_APPLY,
+				LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS, LogTrip.COLUMN_PLACE, LogTrip.COLUMN_ID);
 		Log.i("SignManageDaoImp.updateInLog", "sql=" + sql);
 		try {
-			runner.update(sql, time, way, matters, id);
+			runner.update(sql, time, way, matters, place, id);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -140,14 +140,25 @@ public class LogTripDaoImp {
 		return -1;
 	}
 
-	public boolean insertLog(String uid, String time, String dayStart, String dayEnd, String days, String way,
-			String matters) {
-		String sql = String.format("insert into %s(%s, %s, %s, %s, %s, %s, %s, &s) values(?, ?, ?,?,?,?,?,?)",
-				LogTrip.TABLE_NAME, LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_TIME_APPLY, LogTrip.COLUMN_DAY_START,
-				LogTrip.COLUMN_DAY_END, LogTrip.COLUMN_DAYS, LogTrip.COLUMN_WAY, LogTrip.COLUMN_MATTERS,
-				LogTrip.COLUMN_REPLY_TYPE);
+	public boolean insertLog(String uid, String time, String dayStart, String dayEnd, double days, String way,
+			String matters, String place) {
+		String sql = String.format("insert into %s"
+				+ "(%s, %s, %s,"
+				+ " %s, %s, %s,"
+				+ " %s, %s, %s) values"
+				+ "(?,?,?,"
+				+ "?,?,?,"
+				+ "?,?,?);",
+				LogTrip.TABLE_NAME,
+				LogTrip.COLUMN_UID_APPLY, LogTrip.COLUMN_TIME_APPLY, LogTrip.COLUMN_DAY_START,
+				LogTrip.COLUMN_DAY_END, LogTrip.COLUMN_DAYS, LogTrip.COLUMN_WAY,
+				LogTrip.COLUMN_MATTERS, LogTrip.COLUMN_REPLY_TYPE, LogTrip.COLUMN_PLACE);
+		Log.i("LogTripDaoImp.insertLog", "sql="+sql);
 		try {
-			runner.update(sql, uid, time, dayStart, dayEnd, days, way, matters, 0);
+			runner.update(sql,
+					uid, time, "dayStart",
+					"dayEnd", days, way,
+					matters, 0, place);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

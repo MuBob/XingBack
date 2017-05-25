@@ -1,9 +1,4 @@
-/META-INF/
-/dbcpconfig.properties
-/entitys/
-/services/
-/servlets/
-/testdbcpconfig.properties
-/utils/
-/manager/
 /db/
+/servlets/
+/services/
+/utils/

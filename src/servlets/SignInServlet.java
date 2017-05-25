@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.LogSignIn;
+import db.TablePersonal;
 import entitys.LoginDataResponse;
 import entitys.SignInDataResponse;
 import services.LoginDaoImp;
+import services.PersonalManagerDaoImp;
 import services.SignInDaoImp;
 import utils.DateUtil;
 import utils.Log;
@@ -30,13 +32,13 @@ import utils.StringUtil;
  */
 public class SignInServlet extends HttpServlet {
 
-	private LoginDaoImp loginDao = null;
+	private PersonalManagerDaoImp loginDao = null;
 	private SignInDaoImp signInDao = null;
-	private List<LoginDataResponse> lists = null;
+	private List<TablePersonal> lists = null;
 
 	public SignInServlet() {
 		super();
-		loginDao = new LoginDaoImp();
+		loginDao = new PersonalManagerDaoImp();
 		signInDao = new SignInDaoImp();
 	}
 

@@ -25,8 +25,8 @@ import utils.ResponseDesolve;
 import utils.StringUtil;
 
 /**
- * url: http://localhost:8080/Xing/ApplyLeaveServlet?id=123456789&dayStart=3月7日&
- * dayEnd=3月9日&days=2.5&reason=正在进行中&time=1&picture=http://da.jpg
+ * url: http://localhost:8080/Xing/ApplyLeaveServlet?id=123456789&startDay=3月7日&
+ * endDay=3月9日&days=2.5&reason=正在进行中&time=1&picture=http://da.jpg
  * 
  * @author WangJinXing
  *
@@ -52,10 +52,10 @@ public class ApplyLeaveServlet extends HttpServlet {
 		String reason = request.getParameter("reason");
 		String time = request.getParameter("time");
 		String picture = request.getParameter("picture");
-		String dayStart = request.getParameter("dayStart");
-		String dayEnd = request.getParameter("dayEnd");
+		String dayStart = request.getParameter("startDay");
+		String dayEnd = request.getParameter("endDay");
 		String responseStr = null;
-		Log.i("ApplyLeaveServlet.doGet", "id=" + id);
+		Log.i("ApplyLeaveServlet.doGet", "id=" + id+", reason="+reason+", dayStart="+dayStart+", dayEnd="+dayEnd);
 		if (StringUtil.isNull(time)) {
 			time = DateUtil.getCurrentTime();
 		}

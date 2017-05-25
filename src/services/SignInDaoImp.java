@@ -41,14 +41,13 @@ public class SignInDaoImp {
 		int count = 0;
 		if (signIn == null) {
 			// 第一次插入，count=1
-			if (insertLog(id, place, time)) {
+			if (insertLog(id, place, time,1)) {
 				count = 1;
 			} else {
 				// 插入失败
 				count = -1;
 			}
 		} else {
-			Log.i("SignInDaoImp.signInToday", "count="+signIn.getCount());
 			count = 1+signIn.getCount();
 			if (count <= totalSignCount) {
 				if (!updateLog(id, place, time, count)) {
@@ -78,11 +77,11 @@ public class SignInDaoImp {
 		return false;
 	}
 
-	public boolean insertLog(String id, String place, String time) {
-		String sql = String.format("insert into %s(%s, %s, %s) values(?,?,?)", LogSignIn.TABLE_NAME,
-				LogSignIn.COLUMN_UID, LogSignIn.COLUMN_PLACE, LogSignIn.COLUMN_TIME);
+	public boolean insertLog(String id, String place, String time, int count) {
+		String sql = String.format("insert into %s(%s, %s, %s, %s) values(?,?,?,?)", LogSignIn.TABLE_NAME,
+				LogSignIn.COLUMN_UID, LogSignIn.COLUMN_PLACE, LogSignIn.COLUMN_TIME,LogSignIn.COLUMN_COUNT);
 		try {
-			runner.update(sql, id, place, time);
+			runner.update(sql, id, place, time, count);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

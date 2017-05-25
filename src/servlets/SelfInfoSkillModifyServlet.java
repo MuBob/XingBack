@@ -73,9 +73,9 @@ public class SelfInfoSkillModifyServlet extends HttpServlet {
 				List<TableSkill> allSkillBeans = infoDao.queryAllSkillBeans();
 				for (int i = 0; i < allSkillBeans.size(); i++) {
 					TableSkill skillBean = allSkillBeans.get(i);
-					String nextLevel = getLevelById(skillBean.get_id(), accounting, computer, civil, safety);
+					String nextLevel = getLevelById(skillBean.getId(), accounting, computer, civil, safety);
 					if (!StringUtil.isNull(nextLevel)) {
-						modifyMap.put(skillBean.get_id(), nextLevel);
+						modifyMap.put(skillBean.getId(), nextLevel);
 					}
 				}
 

@@ -26,8 +26,9 @@ import utils.ResponseDesolve;
 import utils.StringUtil;
 
 /**
- *  url: 
- *  http://localhost:8080/Xing/ApplyTripServlet?id=123456780&dayStart=3月7日&dayEnd=3月9日&days=2.5&way=正在进行中&time=1&matters=da&place=didiao
+ * url:
+ * http://localhost:8080/Xing/ApplyTripServlet?id=123456780&dayStart=3月7日&dayEnd
+ * =3月9日&days=2.5&way=正在进行中&time=1&matters=da&place=didiao
  * 
  * @author WangJinXing
  *
@@ -49,52 +50,65 @@ public class ApplyTripServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		String id = request.getParameter("id");
-		String days = request.getParameter("days");
+		String dayString = request.getParameter("days");
+		double days = -1;
 		String way = request.getParameter("way");
 		String time = request.getParameter("time");
 		String matters = request.getParameter("matters");
-		String dayStart = request.getParameter("dayStart");
-		String dayEnd = request.getParameter("dayEnd");
+		String dayStart = request.getParameter("startDay");
+		String dayEnd = request.getParameter("endDay");
+		String place = request.getParameter("place");
 		String responseStr = null;
-		Log.i("ApplyTripServlet.doGet", "id="+id);
+		Log.i("ApplyTripServlet.doGet", "id=" + id+", way="+way+", matters="+matters+", day="+dayString+", place="+place);
 		if (StringUtil.isNull(time)) {
 			time = DateUtil.getCurrentTime();
 		}
-		if (StringUtil.isNull(id) || StringUtil.isNull(way)||StringUtil.isNull(matters) || StringUtil.isNull(days)) {
+		if (StringUtil.isNull(id) || StringUtil.isNull(way) || StringUtil.isNull(matters)
+				|| StringUtil.isNull(dayString) || StringUtil.isNull(place)) {
 			responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
 					ResponseCommon.Msg.ERROR_PARAMS);
 		} else {
-			lists = loginDao.queryById(id);
-			if (lists == null || lists.size() == 0) {
-				// 没有该账号 创建注册
-				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-						ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
-			} else {
-				// 账号存在
-				boolean isApply = false;
-				List<LogTrip> queryList = tripDao.queryByApplyId(id);
-				if (queryList == null || queryList.size() <= 0) {
-					isApply = tripDao.insertLog(id, time, dayStart, dayEnd, days, way, matters);
+			try {
+				days = Double.parseDouble(dayString);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (days >= 0) {
+				lists = loginDao.queryById(id);
+				if (lists == null || lists.size() == 0) {
+					// 没有该账号 创建注册
+					responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
+							ResponseCommon.Msg.ERROR_FAILE_LOGIN_NO_USER);
 				} else {
-					for (int i = 0; i < queryList.size(); i++) {
-						LogTrip tripOne = queryList.get(i);
-						if (tripOne.getReply() == 0) {
-							isApply = tripDao.updateApplyTimeById(tripOne.get_id(), time, way,matters);
-							break;
+					// 账号存在
+					boolean isApply = false;
+					List<LogTrip> queryList = tripDao.queryByApplyId(id);
+					if (queryList == null || queryList.size() <= 0) {
+						isApply = tripDao.insertLog(id, time, dayStart, dayEnd, days, way, matters, place);
+					} else {
+						for (int i = 0; i < queryList.size(); i++) {
+							LogTrip tripOne = queryList.get(i);
+							if (tripOne.getReply() == 0) {
+								isApply = tripDao.updateApplyTimeById(tripOne.get_id(), time, way, matters, place);
+								break;
+							}
+						}
+						if (!isApply) {
+							isApply = tripDao.insertLog(id, time, dayStart, dayEnd, days, way, matters, place);
 						}
 					}
-					if (!isApply) {
-						isApply = tripDao.insertLog(id, time, dayStart, dayEnd, days, way, matters);
+					if (isApply) {
+						responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
+								ResponseCommon.Msg.SUCCESS_APPLY_TRIP);
+					} else {
+						responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
+								ResponseCommon.Msg.FAILE_APPLY_TRIP);
+
 					}
 				}
-				if (isApply) {
-					responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.SUCCESS,
-							ResponseCommon.Msg.SUCCESS_APPLY_TRIP);
-				} else {
-					responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.FAILE,
-							ResponseCommon.Msg.FAILE_APPLY_TRIP);
-
-				}
+			} else {
+				responseStr = ResponseDesolve.getInstance().desolve(ResponseCommon.Code.ERROR_PARAMS,
+						ResponseCommon.Msg.ERROR_PARAMS);
 			}
 		}
 		ResponseDesolve.getInstance().sendResponse(responseStr, request, response);

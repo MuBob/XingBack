@@ -37,21 +37,20 @@ public class SignOutDaoImp {
 	}
 
 	public int signToday(String id, String place, String time) {
-		int totalSignCount=2;
-		LogSignOut signIn = hasFirstLogToday(id, time);
+		int totalSignCount = 2;
+		LogSignOut signOut = hasFirstLogToday(id, time);
 		int count = 0;
-		if (signIn == null) {
+		if (signOut == null) {
 			// 第一次插入，count=1
-			if (insertLog(id, place, time)) {
+			if (insertLog(id, place, time, 1)) {
 				count = 1;
 			} else {
 				// 插入失败
 				count = -1;
 			}
 		} else {
-			count = signIn.getCount();
-			if (count < totalSignCount) {
-				count++;
+			count = 1 + signOut.getCount();
+			if (count <= totalSignCount) {
 				if (!updateLog(id, place, time, count)) {
 					// 更新失败
 					count = -2;
@@ -62,13 +61,15 @@ public class SignOutDaoImp {
 	}
 
 	public boolean updateLog(String id, String place, String time, int count) {
-		/*String sql = String.format("update %s set %s=?, %s=?,%s=? where %s=?", LogSignIn.TABLE_NAME,
-				LogSignIn.COLUMN_PLACE2, place, LogSignIn.COLUMN_TIME2, time, LogSignIn.COLUMN_COUNT, count,
-				LogSignIn.COLUMN_UID, id);*/
+		/*
+		 * String sql = String.format("update %s set %s=?, %s=?,%s=? where %s=?"
+		 * , LogSignIn.TABLE_NAME, LogSignIn.COLUMN_PLACE2, place,
+		 * LogSignIn.COLUMN_TIME2, time, LogSignIn.COLUMN_COUNT, count,
+		 * LogSignIn.COLUMN_UID, id);
+		 */
 		String sql = String.format("update %s set %s=?, %s=?,%s=? where %s=?", LogSignOut.TABLE_NAME,
-				LogSignOut.COLUMN_PLACE2, LogSignOut.COLUMN_TIME2, LogSignOut.COLUMN_COUNT,
-				LogSignOut.COLUMN_UID);
-		Log.i("SignManageDaoImp.updateInLog", "sql="+sql);
+				LogSignOut.COLUMN_PLACE2, LogSignOut.COLUMN_TIME2, LogSignOut.COLUMN_COUNT, LogSignOut.COLUMN_UID);
+		Log.i("SignManageDaoImp.updateInLog", "sql=" + sql);
 		try {
 			runner.update(sql, place, time, count, id);
 			return true;
@@ -79,11 +80,11 @@ public class SignOutDaoImp {
 		return false;
 	}
 
-	public boolean insertLog(String id, String place, String time) {
-		String sql = String.format("insert into %s(%s, %s, %s) values(?,?,?)", LogSignOut.TABLE_NAME,
-				LogSignOut.COLUMN_UID, LogSignOut.COLUMN_PLACE, LogSignOut.COLUMN_TIME);
+	public boolean insertLog(String id, String place, String time, int count) {
+		String sql = String.format("insert into %s(%s, %s, %s, %s) values(?,?,?,?)", LogSignOut.TABLE_NAME,
+				LogSignOut.COLUMN_UID, LogSignOut.COLUMN_PLACE, LogSignOut.COLUMN_TIME, LogSignOut.COLUMN_COUNT);
 		try {
-			runner.update(sql, id, place, time);
+			runner.update(sql, id, place, time, count);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
